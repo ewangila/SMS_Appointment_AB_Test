@@ -2,11 +2,6 @@ import hashlib
 from datetime import datetime
 from typing import Dict
 
-# 1. Mock classes to simulate the company's backend systems
-class MetricsCalculator:
-    def log_event(self, user_id, event_type):
-        pass
-
 class NotificationSystem:
     def send_email(self, user_id, template, appointment_details):
         print(f"📧 Email sent to User {user_id} for appointment {appointment_details['appointment_id']}")
@@ -14,7 +9,7 @@ class NotificationSystem:
     def send_sms(self, user_id, template, appointment_details):
         print(f"📱 SMS sent to User {user_id} for appointment {appointment_details['appointment_id']}")
 
-# 2. The Core Experiment Class
+#  The Core Experiment Class
 class Experiment:
     def __init__(self, experiment_id: str, traffic_percentage: float = 0.5):
         self.experiment_id = experiment_id
@@ -41,11 +36,10 @@ class Experiment:
             user.get('appointment_count', 0) > 0  
         )
 
-# 3. The Specific Reminder Experiment
+#  The Specific Reminder Experiment
 class ReminderExperiment(Experiment):
     def __init__(self):
         super().__init__('reminder_optimization_2024Q1')
-        self.metrics_calculator = MetricsCalculator()
         self.notification_system = NotificationSystem()
         
     def send_reminders(self, appointment: Dict) -> None:
@@ -69,7 +63,7 @@ class ReminderExperiment(Experiment):
                 appointment_details=appointment
             )
 
-# --- Test the implementation ---
+# Test the implementation 
 if __name__ == "__main__":
     experiment = ReminderExperiment()
     

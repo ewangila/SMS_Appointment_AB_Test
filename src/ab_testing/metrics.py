@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import sqlite3
 from datetime import datetime, timedelta
-from typing import Dict
+from typing import Dict, Tuple
+
 from statsmodels.stats.proportion import confint_proportions_2indep
 
 class DatabaseConnection:
@@ -44,12 +47,15 @@ class DatabaseConnection:
         return result[0] if result and result[0] is not None else 0.0
 
 class MetricsCalculator:
-    def __init__(self):
+    def __init__(self) -> None:
         self.db = DatabaseConnection()
-        
-    def calculate_attendance_rate(self, variant: str, 
-                                  start_date: datetime, 
-                                  end_date: datetime) -> float:
+
+    def calculate_attendance_rate(
+        self,
+        variant: str,
+        start_date: datetime,
+        end_date: datetime,
+    ) -> float:
         """Calculate attendance rate for a variant using SQL."""
         query = """
         SELECT 
@@ -64,12 +70,14 @@ class MetricsCalculator:
             'end_date': end_date
         })
         
-    def calculate_confidence_interval(self, 
-                                     control_successes: int, 
-                                     control_trials: int,
-                                     treatment_successes: int, 
-                                     treatment_trials: int,
-                                     confidence_level: float = 0.95) -> Dict:
+    def calculate_confidence_interval(
+        self,
+        control_successes: int,
+        control_trials: int,
+        treatment_successes: int,
+        treatment_trials: int,
+        confidence_level: float = 0.95,
+    ) -> Dict[str, float | Tuple[float, float]]:
         """Calculate confidence interval for the difference in proportions."""
         
         # Calculate effect size (Absolute Difference)

@@ -20,7 +20,6 @@ AB_testing/
 │       └── reporting.py         # Report generation
 ├── scripts/
 │   └── run_analysis.py          # End-to-end analysis script
-├── pyproject.toml
 ├── requirements.txt
 ├── LICENSE
 └── README.md
